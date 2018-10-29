@@ -6,6 +6,7 @@ import jwebform.integration.annotations.UseFieldType;
 import jwebform.spring.SimpleJWebForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,8 +18,9 @@ public class DemoController {
    and put the formModel in the model as "form" and "form_rendered"
   */
   @RequestMapping("/demo")
-  public void demo(SimpleJWebForm<DemoForm> form) {
+  public void demo(SimpleJWebForm<DemoForm> form, Model model) {
     if (form.isOk()){
+      model.addAttribute("success", "YES");
       log.info("Form was successfully submitted: " + form.getBean().firstname);
     }
   }
@@ -26,7 +28,7 @@ public class DemoController {
   /*
    Demo form.
    Note: This must be "public static" here, because it have to be initialsed programmatically
-   There are some
+   See for handling beans: https://github.com/jochen777/jWebForm/blob/master/doc/beans.md
     */
   public static class DemoForm {
 
