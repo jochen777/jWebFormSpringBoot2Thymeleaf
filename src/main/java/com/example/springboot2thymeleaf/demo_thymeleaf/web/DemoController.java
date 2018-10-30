@@ -37,7 +37,7 @@ public class DemoController {
 
     public String lastname="";
 
-    @UseFieldType(type= SubmitType.class)
+    @UseFieldType(SubmitType.class)
     public String submit="";
   }
 }
