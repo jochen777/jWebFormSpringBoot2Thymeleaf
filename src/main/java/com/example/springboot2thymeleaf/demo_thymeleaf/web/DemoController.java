@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.constraints.NotEmpty;
+
 @Controller
 @Slf4j
 public class DemoController {
@@ -35,6 +37,7 @@ public class DemoController {
     @UseDecoration(label = "Your firstname", helpText = "Don't cheat here!")
     public String firstname="";
 
+    @NotEmpty
     public String lastname="";
 
     @UseFieldType(SubmitType.class)
