@@ -31,26 +31,11 @@ public class DemoControllerTest {
   public void test_DemoController() {
     DemoController controller = new DemoController();
 
-
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-    Bean2Form bean2FromContract = generateBean2Form(validator);
     Map<Object, Object> model = new HashMap<>();
 
-    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-      new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
-
-    SimpleJWebForm<DemoController.DemoForm> form = new SimpleJWebForm(
-      DemoController.DemoForm.class,
-      ExampleRequests.exampleSubmittedRequest("firstname", "Jochen"),
-      ExampleRequests.emptySessionGet(),
-      ExampleRequests.emptySessionPut(),
-      (t,v) -> model.put(t,v),
-      bean2FromContract,
-      new JWebFormProperties(),
-      renderer
-      );
+    SimpleJWebForm<DemoController.DemoForm> form = getForm(model);
     ExtendedModelMap modelToController = new ExtendedModelMap();
+
     controller.demo(form, modelToController);
 
     assertTrue("Model that the SimpleWebForm fills should contain 2 entries (form and form_rendered)", model.size()==2);
@@ -58,6 +43,26 @@ public class DemoControllerTest {
     assertTrue("Model that the SimpleWebForm should contain the key 'form'", model.containsKey("form"));
 
     assertTrue("Model of the controller should contain the key 'success'", modelToController.containsKey("success"));
+  }
+
+  private SimpleJWebForm<DemoController.DemoForm> getForm(Map<Object, Object> model) {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
+    Bean2Form bean2FromContract = generateBean2Form(validator);
+
+    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
+      new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+
+    return (SimpleJWebForm<DemoController.DemoForm>) new SimpleJWebForm(
+      DemoController.DemoForm.class,
+      ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
+      ExampleRequests.emptySessionGet(),
+      ExampleRequests.emptySessionPut(),
+      (t,v) -> model.put(t,v),
+      bean2FromContract,
+      new JWebFormProperties(),
+      renderer
+      );
   }
 
   private Bean2Form generateBean2Form(Validator validator) {
