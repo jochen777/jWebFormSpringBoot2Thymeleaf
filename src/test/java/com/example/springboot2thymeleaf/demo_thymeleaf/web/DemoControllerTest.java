@@ -1,11 +1,13 @@
 package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
+import jwebform.FormModel;
 import jwebform.integration.DefaultBean2Form;
 import jwebform.integration.Bean2Form;
 import jwebform.integration.beanvalidation.BeanValidationRuleDeliverer;
 import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
+import jwebform.spring.FormRunnerConfig;
 import jwebform.spring.JWebFormProperties;
 import jwebform.spring.SimpleJWebForm;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
@@ -53,15 +55,15 @@ public class DemoControllerTest {
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
       new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
+    FormRunnerConfig formRunnerConfig = new FormRunnerConfig(renderer, bean2FromContract, FormModel::new, new JWebFormProperties());
+
     return (SimpleJWebForm<DemoController.DemoForm>) new SimpleJWebForm(
       DemoController.DemoForm.class,
       ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
       ExampleRequests.emptySessionGet(),
       ExampleRequests.emptySessionPut(),
       (t,v) -> model.put(t,v),
-      bean2FromContract,
-      new JWebFormProperties(),
-      renderer
+      formRunnerConfig
       );
   }
 
