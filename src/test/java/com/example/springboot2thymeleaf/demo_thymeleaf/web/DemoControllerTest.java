@@ -35,7 +35,7 @@ public class DemoControllerTest {
 
     Map<Object, Object> model = new HashMap<>();
 
-    SimpleJWebForm<DemoController.DemoForm> form = getForm(model);
+    SimpleJWebForm<DemoController.DemoFormJWebFormAPI> form = getForm(model);
     ExtendedModelMap modelToController = new ExtendedModelMap();
 
     controller.demo(form, modelToController);
@@ -47,7 +47,7 @@ public class DemoControllerTest {
     assertTrue("Model of the controller should contain the key 'success'", modelToController.containsKey("success"));
   }
 
-  private SimpleJWebForm<DemoController.DemoForm> getForm(Map<Object, Object> model) {
+  private SimpleJWebForm<DemoController.DemoFormJWebFormAPI> getForm(Map<Object, Object> model) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     Bean2Form bean2FromContract = generateBean2Form(validator);
@@ -57,7 +57,7 @@ public class DemoControllerTest {
 
     FormRunnerConfig formRunnerConfig = new FormRunnerConfig(renderer, bean2FromContract, FormModel::new, new JWebFormProperties());
 
-    return (SimpleJWebForm<DemoController.DemoForm>) new SimpleJWebForm(
+    return (SimpleJWebForm<DemoController.DemoFormJWebFormAPI>) new SimpleJWebForm(
       DemoController.DemoForm.class,
       ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
       ExampleRequests.emptySessionGet(),
