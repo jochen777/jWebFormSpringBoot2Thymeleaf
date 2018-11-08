@@ -59,7 +59,7 @@ public class DemoControllerTest {
     Bean2Form bean2FromContract = generateBean2Form(validator);
 
     ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)), msg->msg);
 
     FormRunnerConfig formRunnerConfig =
         new FormRunnerConfig(renderer, bean2FromContract, FormModel::new, "form");
