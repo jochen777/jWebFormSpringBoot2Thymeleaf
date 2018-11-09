@@ -33,7 +33,7 @@ public class DemoController {
    */
   public static class DemoForm {
 
-    @UseDecoration(label = "Your firstname", helpText = "Don't cheat here!")
+    @UseDecoration(label = "firstname.label", helpText = "firstname.helptext")
     public String firstname = "";
 
     @NotEmpty
