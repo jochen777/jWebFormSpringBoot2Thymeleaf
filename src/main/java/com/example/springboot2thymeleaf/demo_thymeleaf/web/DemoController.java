@@ -36,9 +36,10 @@ public class DemoController {
    */
   @RequestMapping("/demo2")
   public void demo2(FormRunner form) {
-    FormResultWithBean fr = (FormResultWithBean) form.run(new DemoForm());
+    DemoForm demoForm = new DemoForm();
+    FormResultWithBean fr = form.runWithBean(demoForm);
     if (fr.isValid()) {
-      log.info("Form was successfully submitted: " + ((DemoForm)fr.getBean()).firstname);
+      log.info("Form was successfully submitted: " + demoForm.firstname);
     }
   }
 
