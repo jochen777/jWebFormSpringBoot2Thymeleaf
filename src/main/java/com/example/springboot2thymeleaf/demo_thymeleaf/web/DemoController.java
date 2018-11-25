@@ -1,6 +1,10 @@
 package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
 import javax.validation.constraints.NotEmpty;
+
+import jwebform.FormResult;
+import jwebform.integration.FormRunner;
+import jwebform.integration.bean2form.FormResultWithBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +30,20 @@ public class DemoController {
     }
   }
 
+
+  /*
+   * here the bean is created manually. This is useful in case you have to add contructor arguments
+   */
+  @RequestMapping("/demo2")
+  public void demo2(FormRunner form) {
+    DemoForm demoForm = new DemoForm();
+    FormResultWithBean fr = form.runWithBean(demoForm);
+    if (fr.isValid()) {
+      log.info("Form was successfully submitted: " + demoForm.firstname);
+    }
+  }
+
+
   /*
    * Demo form. Note: This must be "public static" here, because it have to be initialsed
    * programmatically See for handling beans:
@@ -33,7 +51,7 @@ public class DemoController {
    */
   public static class DemoForm {
 
-    @UseDecoration(label = "Your firstname", helpText = "Don't cheat here!")
+    @UseDecoration(label = "firstname.label", helpText = "firstname.helptext")
     public String firstname = "";
 
     @NotEmpty
