@@ -20,7 +20,7 @@ public class DemoController {
    */
   @RequestMapping("/demo")
   public void demo(ContainerFormRunner<DemoForm> form, Model model) {
-    if (form.isSubmittedAndOk()) {
+    if (form.isValid()) {
       model.addAttribute("success", "YES");
       log.info("Form was successfully submitted: " + form.getBean().firstname);
     }
