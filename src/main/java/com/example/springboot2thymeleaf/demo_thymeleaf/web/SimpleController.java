@@ -51,9 +51,8 @@ public class SimpleController {
     @UseFieldType(LabelType.class)
     public String label = "I'm a label";
 
-    // TODO: formatierung nicht so schön!
-    @UseDecoration(label="checkbox.label")
-    public boolean checkBox = false;
+    @UseDecoration(label="checkbox.label", helpText = "checkbox.help")
+    public boolean checkBox = true;
 
     // TODO: Translations unlogisch (Day, Month, Year), label nicht übersetztt.
     @UseDecoration(label="birthday")
