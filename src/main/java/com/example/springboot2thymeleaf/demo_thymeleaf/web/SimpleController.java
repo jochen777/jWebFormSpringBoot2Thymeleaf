@@ -1,21 +1,17 @@
 package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
+import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import jwebform.field.HtmlType;
 import jwebform.field.LabelType;
 import jwebform.field.SubmitType;
 import jwebform.integration.ContainerFormRunner;
-import jwebform.integration.FormRunner;
-import jwebform.integration.bean2form.FormResultWithBean;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.integration.bean2form.annotations.UseFieldType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 @Controller
 @Slf4j
@@ -51,11 +47,10 @@ public class SimpleController {
     @UseFieldType(LabelType.class)
     public String label = "I'm a label";
 
-    @UseDecoration(label="checkbox.label", helpText = "checkbox.help")
+    @UseDecoration(label = "checkbox.label", helpText = "checkbox.help")
     public boolean checkBox = true;
 
-    // TODO: Translations unlogisch (Day, Month, Year), label nicht übersetztt.
-    @UseDecoration(label="birthday")
+    @UseDecoration(label = "birthday")
     public LocalDate birthday = LocalDate.now();
 
     @UseFieldType(HtmlType.class)
