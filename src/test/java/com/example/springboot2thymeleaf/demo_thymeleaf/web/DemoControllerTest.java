@@ -14,6 +14,8 @@ import javax.validation.ValidatorFactory;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
 import jwebform.FormModel;
@@ -62,7 +64,7 @@ public class DemoControllerTest {
         new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
-        new FormRunnerConfig(renderer, bean2FromContract, FormModel::new, "form");
+        new FormRunnerConfig(renderer, bean2FromContract, new ModelResultProcessor(), "form");
 
     return (ContainerFormRunner<DemoController.DemoForm>) new ContainerFormRunner(
         DemoController.DemoForm.class, ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
