@@ -45,8 +45,8 @@ public class DemoControllerTest {
     controller.demo(form, modelToController);
 
     assertTrue(
-        "Model that the SimpleWebForm fills should contain 2 entries (form and form_rendered)",
-        model.size() == 2);
+        "Model that the SimpleWebForm fills should contain 1 entries (form)",
+        model.size() == 1);
 
     assertTrue("Model that the SimpleWebForm should contain the key 'form'",
         model.containsKey("form"));
