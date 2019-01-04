@@ -2,6 +2,7 @@ package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
 import javax.validation.constraints.NotEmpty;
 
+import jwebform.integration.FormResultAndBean;
 import jwebform.integration.FormRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +36,8 @@ public class DemoController {
   @RequestMapping("/demo2")
   public void demo2(FormRunner form) {
     DemoForm demoForm = new DemoForm();
-    FormRunner.FormResultAndBean fr = form.runWithBean(demoForm);
-    if (fr.getFr().isValid()) {
+    FormResultAndBean fr = form.runWithBean(demoForm);
+    if (fr.isValid()) {
       log.info("Form was successfully submitted: " + demoForm.firstname);
     }
   }
