@@ -2,12 +2,15 @@ package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
 import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import jwebform.field.HtmlType;
 import jwebform.field.LabelType;
 import jwebform.field.SubmitType;
+import jwebform.integration.AjaxResult;
 import jwebform.integration.ContainerFormRunner;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.integration.bean2form.annotations.UseFieldType;
@@ -22,11 +25,21 @@ public class SimpleController {
    * formModel in the model as "form" and "form_rendered"
    */
   @RequestMapping("/simple")
-  public void simple(ContainerFormRunner<DemoForm> form, Model model) {
+  public String simple(ContainerFormRunner<DemoForm> form, Model model) {
     if (form.isValid()) {
       model.addAttribute("success", "YES");
       log.info("Form was successfully submitted: " + form.getBean().firstname);
     }
+    return "simple_ajax";
+  }
+
+  // Example for ajax request.
+  @RequestMapping("/simple_ajax")
+  public @ResponseBody AjaxResult simpleAjax(ContainerFormRunner<DemoForm> form) {
+    if (form.isValid()) {
+      log.info("Form was successfully submitted: " + form.getBean().firstname);
+    }
+    return form.getAjaxResult();
   }
 
 
@@ -38,6 +51,7 @@ public class SimpleController {
   public static class DemoForm {
 
     @UseDecoration(label = "firstname.label", helpText = "firstname.helptext")
+    @Size(min = 2, max = 200, message = "The name must be between 10 and 200 chars")
     public String firstname = "";
 
     @NotEmpty

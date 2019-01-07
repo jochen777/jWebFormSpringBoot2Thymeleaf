@@ -1,15 +1,13 @@
 package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
 import javax.validation.constraints.NotEmpty;
-
-import jwebform.FormResult;
-import jwebform.integration.FormRunner;
-import jwebform.integration.bean2form.FormResultWithBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import jwebform.field.SubmitType;
 import jwebform.integration.ContainerFormRunner;
+import jwebform.integration.FormResultAndBean;
+import jwebform.integration.FormRunner;
 import jwebform.integration.bean2form.annotations.UseDecoration;
 import jwebform.integration.bean2form.annotations.UseFieldType;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +35,7 @@ public class DemoController {
   @RequestMapping("/demo2")
   public void demo2(FormRunner form) {
     DemoForm demoForm = new DemoForm();
-    FormResultWithBean fr = form.runWithBean(demoForm);
+    FormResultAndBean fr = form.runWithBean(demoForm);
     if (fr.isValid()) {
       log.info("Form was successfully submitted: " + demoForm.firstname);
     }

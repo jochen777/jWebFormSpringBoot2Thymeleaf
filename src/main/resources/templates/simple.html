@@ -31,12 +31,48 @@
 
 
 <div style="width:500px; margin-left:50px">
-  <h1>Hello World - Thymeleaf! (Demo2)</h1>
+  <h1>Demo2 simple</h1>
   <span th:utext="${form.formModel.html}">The form</span>
 
 
 </div>
+<hr>
+<div style="width:500px; margin-left:50px">
+  <h1>Hello World - Thymeleaf! (Demo2)</h1>
+  <span><form name="id-FORMCHECKER" method="POST" id="id" class="was-validated" novalidate>
+<input type="hidden" name="WF_SUBMITTED" value="WF-id">
 
+<fieldset><div class="form-group"><label class="control-label" for="id-firstname">Your Firstname</label><input class="form-control is-valid" tabindex="1" type="text" name="firstname" value="d33" aria-describedby="helpBlock-firstname" maxlength="200">
+<small id="id-firstname-help_block" class="form-text text-muted">
+Don't cheat here!
+</small>
+</div>
+<div class="form-group"><label class="control-label" for="id-lastname">Your Lastname *</label><input class="form-control is-valid" tabindex="2" type="text" name="lastname" value="asdf" required></div>
+<label>I'm a label</label><div class="form-group form-check"><input tabindex="3" type="checkbox" id="id-checkBox" name="checkBox" value="checkBox" checked aria-describedby="helpBlock-checkBox" class="form-check-input is-valid" ><label class="control-label" for="id-checkBox">Check this</label>
+<small id="id-checkBox-help_block" class="form-text text-muted">
+Helptext for Checkbox
+</small>
+</div>
+
+<div class="custom-control custom-checkbox mb-3">
+    <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+    <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+    <div class="invalid-feedback">Example invalid feedback text</div>
+  </div>
+
+<div class="form-group is-invalid">
+<label class="control-label">Birthday</label>
+<div class="invalid-feedback">The date format is not valid</div>
+</div>
+<div class="form-group"><label class="control-label" for="id-birthday_day">Day</label><input class="form-control is-valid" tabindex="4" type="text" name="birthday_day" value="333"></div>
+<div class="form-group"><label class="control-label" for="id-birthday_month">Month</label><input class="form-control is-valid" tabindex="5" type="text" name="birthday_month" value="22"></div>
+<div class="form-group"><label class="control-label" for="id-birthday_year">Year</label><input class="form-control is-valid" tabindex="6" type="text" name="birthday_year" value="2018"></div>
+<br><hr><button class="btn btn-primary" tabindex="7" type="submit" name="submit">submit</button>
+
+</fieldset></form></span>
+
+
+</div>
 
 </body>
 </html>
