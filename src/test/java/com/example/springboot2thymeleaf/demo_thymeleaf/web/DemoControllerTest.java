@@ -14,6 +14,8 @@ import javax.validation.ValidatorFactory;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
+
+import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
 import jwebform.integration.ContainerFormRunner;
@@ -43,8 +45,8 @@ public class DemoControllerTest {
     controller.demo(form, modelToController);
 
     assertTrue(
-        "Model that the SimpleWebForm fills should contain 2 entries (form and form_rendered)",
-        model.size() == 2);
+        "Model that the SimpleWebForm fills should contain 1 entries (form)",
+        model.size() == 1);
 
     assertTrue("Model that the SimpleWebForm should contain the key 'form'",
         model.containsKey("form"));
