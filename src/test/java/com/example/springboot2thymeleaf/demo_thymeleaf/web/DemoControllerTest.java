@@ -14,8 +14,6 @@ import javax.validation.ValidatorFactory;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
-
-import jwebform.resultprocessor.ModelResultProcessor;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
 import jwebform.integration.ContainerFormRunner;
@@ -27,6 +25,7 @@ import jwebform.integration.beanvalidation.BeanValidationValidator;
 import jwebform.integration.beanvalidation.ExternalValidation;
 import jwebform.integration.beanvalidation.ExternalValidationDescription;
 import jwebform.resultprocessor.ModelResultProcessor;
+import jwebform.themes.sourcecode.BootstrapTheme;
 import jwebform.themes.sourcecode.ThemeJavaRenderer;
 import jwebform.themes.sourcecode.mapper.StandardMapper;
 
@@ -44,8 +43,7 @@ public class DemoControllerTest {
 
     controller.demo(form, modelToController);
 
-    assertTrue(
-        "Model that the SimpleWebForm fills should contain 1 entries (form)",
+    assertTrue("Model that the SimpleWebForm fills should contain 1 entries (form)",
         model.size() == 1);
 
     assertTrue("Model that the SimpleWebForm should contain the key 'form'",
@@ -60,8 +58,8 @@ public class DemoControllerTest {
     Validator validator = factory.getValidator();
     Bean2Form bean2FromContract = generateBean2Form(validator);
 
-    ThemeJavaRenderer renderer = new ThemeJavaRenderer(
-        new StandardMapper(jwebform.themes.sourcecode.BootstrapTheme.instance(msg -> msg)));
+    ThemeJavaRenderer renderer =
+        new ThemeJavaRenderer(new StandardMapper(new BootstrapTheme(msg -> msg)));
 
     FormRunnerConfig formRunnerConfig =
         new FormRunnerConfig(renderer, bean2FromContract, new ModelResultProcessor(), "form");
