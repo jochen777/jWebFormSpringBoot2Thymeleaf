@@ -4,11 +4,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
-<div th:fragment="form(form)">
-    <div th:replace="lib/forms :: form_start(${form}, 'POST')"></div>
+<div th:fragment="form(form )" th:with="method=${method} ?: 'POST', action=${action} ?: ''" >
+    <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }" class="{{ formClass }}"
+          th:action="${action}"
+          th:id="${form.formModel.formId}">
+        <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
+
     <span th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
-<div th:replace="lib/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
+        <div th:replace="lib/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
     </span>
+
+    </form>
 </div>
 
 <div th:fragment="form_start(form, method)">
@@ -19,12 +25,12 @@
         <!-- {%  if form.isUploadEnctypeRequired %} enctype="multipart/form-data" {% endif %}
           {% if not form.isHtml5Validaiton %}novalidate{% endif %} -->
 </div>
-
 <div  th:fragment="jwebform_field_TextType(producerInfo)">
-    <div class="form-group"><label class="control-label" th:for="@{'id-' + ${producerInfo.name}}">
+    <div class="form-group"><label class="control-label" th:for="@{'id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                       th:required="${producerInfo.validator.required}"
                        class="form-control " th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
                        th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small id="id-firstname-help_block" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
@@ -33,7 +39,9 @@
     </div>
 </div>
 <div  th:fragment="jwebform_field_SubmitType(producerInfo)">
-<input type="submit">
-    <span th:text="${producerInfo.name}">j</span>
+    <div>
+        <button type="submit" class="btn btn-primary"
+                th:name="${ producerInfo.name }" value="" th:tabindex="${producerInfo.tabIndex}" ><span th:text="${ producerInfo.decoration.label }">Submit</button><br>
 </div>
+
 </html>
