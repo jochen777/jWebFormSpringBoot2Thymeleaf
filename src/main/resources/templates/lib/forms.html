@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
+
 <div th:fragment="form(form )" th:with="method=${method} ?: 'POST', action=${action} ?: ''" >
     <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }" class="{{ formClass }}"
           th:action="${action}"
@@ -25,6 +26,7 @@
         <!-- {%  if form.isUploadEnctypeRequired %} enctype="multipart/form-data" {% endif %}
           {% if not form.isHtml5Validaiton %}novalidate{% endif %} -->
 </div>
+
 <div  th:fragment="jwebform_field_TextType(producerInfo)">
     <div class="form-group"><label class="control-label" th:for="@{'id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
@@ -38,6 +40,13 @@
         </small>
     </div>
 </div>
+
+<div  th:fragment="jwebform_field_CheckBoxType(producerInfo)">
+    Anne!
+</div>
+
+
+
 <div  th:fragment="jwebform_field_SubmitType(producerInfo)">
     <div>
         <button type="submit" class="btn btn-primary"

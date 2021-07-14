@@ -1,6 +1,9 @@
 package com.example.springboot2thymeleaf.demo_thymeleaf.web;
 
 import javax.validation.constraints.NotEmpty;
+
+import com.example.springboot2thymeleaf.demo_thymeleaf.web.form.FullFormBuilder;
+import jwebform.FormResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +36,9 @@ public class DemoController {
    * here the bean is created manually. This is useful in case you have to add contructor arguments
    */
   @RequestMapping("/demo2")
-  public void demo2(FormRunner form) {
-    DemoForm demoForm = new DemoForm();
-    FormResultAndBean fr = form.runWithBean(demoForm);
-    if (fr.isValid()) {
-      log.info("Form was successfully submitted: " + demoForm.firstname);
+  public void demo2(ContainerFormRunner<FullFormBuilder> form) {
+    if (form.isValid()) {
+      log.info("Form was successfully submitted: " + form.getStringValue("name"));
     }
   }
 

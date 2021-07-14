@@ -35,6 +35,7 @@
 <div style="width:500px; margin-left:50px">
   <h1>Hello World - Thymeleaf! (Demo2)</h1>
   <span th:utext="${form.html}">The form</span>
+  <div th:replace="lib/forms :: form(${form})"></div>
 </div>
 
 
