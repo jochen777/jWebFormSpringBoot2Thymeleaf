@@ -24,7 +24,7 @@ public class DemoController {
   public void demo(ContainerFormRunner<DemoForm> form, Model model) {
     if (form.isValid()) {
       model.addAttribute("success", "YES");
-      log.info("Form was successfully submitted: " + form.getBean().firstname);
+      log.info("Form was successfully submitted: " + form.getBean().firstname + " " + form.getBean().lastname);
     }
   }
 
