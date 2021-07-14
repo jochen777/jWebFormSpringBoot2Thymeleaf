@@ -4,15 +4,31 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
+<div th:fragment="form(form)">
+    <div th:replace="lib/forms :: form_start(${form}, 'POST')"></div>
+    <span th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
+<div th:replace="lib/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
+    </span>
+</div>
+
+<div th:fragment="form_start(form, method)">
+    <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }" class="{{ formClass }}"
+          action="{{ action }}"
+           th:id="${form.formModel.formId}">
+        <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
+        <!-- {%  if form.isUploadEnctypeRequired %} enctype="multipart/form-data" {% endif %}
+          {% if not form.isHtml5Validaiton %}novalidate{% endif %} -->
+</div>
+
 <div  th:fragment="jwebform_field_TextType(producerInfo)">
     <div class="form-group"><label class="control-label" th:for="@{'id-' + ${producerInfo.name}}">
-        <span th:text="${producerInfo.decoration.label}">Label</span>
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
-                       class="form-control " tabindex="1" type="text" th:name="${producerInfo.name}"
+                       class="form-control " th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
                        th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
-        <small id="id-firstname-help_block" class="form-text text-muted" th:if="${producerInfo.decoration.helptext}">
-            <span th:text="${producerInfo.decoration.helptext}">Label</span>
+        <small id="id-firstname-help_block" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
         </small>
     </div>
 </div>
