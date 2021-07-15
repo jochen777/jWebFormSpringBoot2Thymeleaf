@@ -42,7 +42,17 @@
 </div>
 
 <div  th:fragment="jwebform_field_CheckBoxType(producerInfo)">
-    Anne!
+    <div class="form-group form-check">
+        <input th:tabindex="${producerInfo.tabIndex}"
+               type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
+               th:name="${producerInfo.name}"
+               th:value="${producerInfo.value}"
+               class="form-check-input " >
+        <label class="control-label" th:for="@{'id-' + ${producerInfo.name}}" >
+            <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+    </div>
 </div>
 
 
