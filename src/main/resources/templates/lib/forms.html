@@ -28,7 +28,7 @@
 </div>
 
 <div  th:fragment="jwebform_field_TextType(producerInfo)">
-    <div class="form-group"><label class="control-label" th:for="@{'id-' + ${producerInfo.name}}" >
+    <div class="form-group"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
@@ -48,7 +48,7 @@
                th:name="${producerInfo.name}"
                th:value="${producerInfo.value}"
                class="form-check-input " >
-        <label class="control-label" th:for="@{'id-' + ${producerInfo.name}}" >
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
             <span th:text="#{${producerInfo.decoration.label}}">Label</span>
             <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label>
