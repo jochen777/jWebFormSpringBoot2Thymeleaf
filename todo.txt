@@ -1,0 +1,17 @@
+[x] Checkbox
+[ ] Hidden
+[ ] HTML
+[ ] Label
+[ ] Number
+[ ] Password
+[ ] Radio
+[ ] SelectDate
+[ ] Select
+[ ] SimpleGroup
+[ ] Simple
+[x] Submit
+[ ] TextArea
+[ ] TextDate
+[x] Text
+[ ] Uplaod
+[ ] XSRFProtection
