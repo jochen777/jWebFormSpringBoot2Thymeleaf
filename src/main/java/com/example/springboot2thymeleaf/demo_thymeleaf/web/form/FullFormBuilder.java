@@ -21,17 +21,22 @@ public class FullFormBuilder implements FormGenerator {
                             criteria     (req).
                             label        ("TextInputLabel"),
 
-                    textDate       ("dateInput", LocalDate.of(2017, 7, 4)).
-                            criteria     (req).
-                            label        ("date_input").
-                            helpText     ("datehelptext"),
-
                     text           ("textInput2", "Peter\"Paul").
                             criteria     (req).
                             label        ("TextInputLabel2").
                             helpText     ("Help-Text").
                             placeholder  ("Placeholder"),
+                    label          ("lbl"). label("TextInputLabel2"),
 
+
+                    html           ("<strong>HTML</strong>"),
+
+                    hidden         ("hddn", "hddn-value"),
+                    number         ("nbr", 5).
+                            criteria     (req).
+                            label        ("nbr-label").
+                            helpText     ("nrb-help"),
+/*
                     select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
                             label        ("Gender"),
 
@@ -41,11 +46,6 @@ public class FullFormBuilder implements FormGenerator {
                             label        ("chk-label").
                             helpText     ("chk_help"),
 
-                    label          ("lbl"),
-
-                    html           ("<strong>HTML</strong>"),
-
-                    hidden         ("hddn", "hddn-value"),
 
                     textArea       ("area", "Area-Prebuild").
                             criteria     (req).
@@ -53,10 +53,6 @@ public class FullFormBuilder implements FormGenerator {
                             helpText     ("Area-Help").
                             placeholder  ("Area-Placeholder"),
 
-                    number         ("nbr", 5).
-                            criteria     (req).
-                            label        ("nbr-label").
-                            helpText     ("nrb-help"),
 
                     password       ("pssword").
                             label        ("Password"),
@@ -66,8 +62,15 @@ public class FullFormBuilder implements FormGenerator {
 
                     radio          ("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
                             .label       ("Radio"),
+                    textDate       ("dateInput", LocalDate.of(2017, 7, 4)).
+                            criteria     (req).
+                            label        ("date_input").
+                            helpText     ("datehelptext"),
+
+ */
                     submit("ok").
                             label("ok")
-            ).build();
+
+                    ).build();
     }
 }

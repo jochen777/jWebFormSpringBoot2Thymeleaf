@@ -38,7 +38,7 @@ public class DemoController {
   @RequestMapping("/demo2")
   public void demo2(ContainerFormRunner<FullFormBuilder> form) {
     if (form.isValid()) {
-      log.info("Form was successfully submitted: " + form.getStringValue("name"));
+      log.info("Form was successfully submitted: " + form.getStringValue("textInput"));
     }
   }
 
