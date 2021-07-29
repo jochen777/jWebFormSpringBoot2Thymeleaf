@@ -12,7 +12,6 @@
         <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
 
     <span th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
-        <span th:text="${producerInfo.typeName}"></span>
     <div th:replace="lib/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
     </span>
 
@@ -35,6 +34,7 @@
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                        th:required="${producerInfo.validator.required}"
+                       th:placeholder="${producerInfo.decoration.placeholder}"
                        class="form-control " th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
                        th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
@@ -74,7 +74,6 @@
 
 <div  th:fragment="jwebform_field_HiddenType(producerInfo)">
     <div>
-        Hidden!
         <input type="hidden" th:name="${producerInfo.name}" th:value="${producerInfo.value}">
     </div>
 </div>
@@ -85,6 +84,7 @@
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
     </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                    th:required="${producerInfo.validator.required}"
+                    th:placeholder="${producerInfo.decoration.placeholder}"
                    class="form-control " th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
                    th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
@@ -92,6 +92,36 @@
         </small>
     </div>
 </div>
+
+<div  th:fragment="jwebform_field_TextAreaType(producerInfo)">
+    <div class="form-group"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+    </label><textarea th:id="@{'form-id-' + ${producerInfo.name}}"
+                   th:required="${producerInfo.validator.required}"
+                    th:placeholder="${producerInfo.decoration.placeholder}"
+                   class="form-control " th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
+                    th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">[[${producerInfo.value}]]</textarea>
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
+<div  th:fragment="jwebform_field_PasswordType(producerInfo)">
+    <div class="form-group"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+        <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+    </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
+                   th:required="${producerInfo.validator.required}"
+                   class="form-control " th:tabindex="${producerInfo.tabIndex}" type="password" th:name="${producerInfo.name}"
+                   th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
+            <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
+        </small>
+    </div>
+</div>
+
 
 <div  th:fragment="jwebform_field_SubmitType(producerInfo)">
     <div>

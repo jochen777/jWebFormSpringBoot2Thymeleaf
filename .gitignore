@@ -19,3 +19,4 @@ target/
 /.gitconfig
 /mvnw
 /mvnw.cmd
+/bin/

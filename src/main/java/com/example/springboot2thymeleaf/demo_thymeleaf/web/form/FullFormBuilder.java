@@ -36,26 +36,22 @@ public class FullFormBuilder implements FormGenerator {
                             criteria     (req).
                             label        ("nbr-label").
                             helpText     ("nrb-help"),
-/*
-                    select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
-                            label        ("Gender"),
-
-
                     checkbox       ("chk", true).
                             criteria     (req).
                             label        ("chk-label").
                             helpText     ("chk_help"),
-
-
-                    textArea       ("area", "Area-Prebuild").
+                    
+                   textArea       ("area", "Area-Prebuild").
                             criteria     (req).
                             label        ("Area").
                             helpText     ("Area-Help").
                             placeholder  ("Area-Placeholder"),
-
-
-                    password       ("pssword").
+                   password       ("pssword").
                             label        ("Password"),
+                                    /*
+                    select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
+                            label        ("Gender"),
+
 
                     upload         ("upld").
                             label        ("Upload"),
