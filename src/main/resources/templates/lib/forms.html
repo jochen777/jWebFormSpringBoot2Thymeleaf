@@ -29,7 +29,8 @@
 </div>
 
 <div  th:fragment="jwebform_field_TextType(producerInfo)">
-    <div class="form-group"><label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+    <div class="form-group">
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
@@ -43,6 +44,7 @@
     </div>
 </div>
 
+<!-- ########## Checkbox ###### -->
 <div  th:fragment="jwebform_field_CheckBoxType(producerInfo)">
     <div class="form-group form-check">
         <input th:tabindex="${producerInfo.tabIndex}"
@@ -56,6 +58,28 @@
         </label>
     </div>
 </div>
+
+<!-- ########## Select ###### -->
+<div  th:fragment="jwebform_field_SelectType(producerInfo)">
+    <div class="form-group">
+        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+            <span th:text="#{${producerInfo.decoration.label}}">Label</span>
+            <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
+        </label>
+        <select class="form-control"
+                th:tabindex="${producerInfo.tabIndex}"
+               type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
+               th:name="${producerInfo.name}"
+               th:value="${producerInfo.value}"
+
+                >
+            <option th:each="selectElem: ${producerInfo.type.entries}" th:value="${selectElem.key}"
+            th:text="${selectElem.value}" th:selected="${producerInfo.value == selectElem.key}"
+            ></option>
+        </select>
+    </div>
+</div>
+
 
 <div  th:fragment="jwebform_field_LabelType(producerInfo)">
     <div>

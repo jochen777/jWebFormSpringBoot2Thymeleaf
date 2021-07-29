@@ -48,10 +48,10 @@ public class FullFormBuilder implements FormGenerator {
                             placeholder  ("Area-Placeholder"),
                    password       ("pssword").
                             label        ("Password"),
-                                    /*
                     select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
                             label        ("Gender"),
 
+                                    /*
 
                     upload         ("upld").
                             label        ("Upload"),
