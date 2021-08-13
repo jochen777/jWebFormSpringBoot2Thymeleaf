@@ -34,11 +34,11 @@ public class DemoControllerTest {
   // example how to test controllers. Remark: No Spring-Context, no HttpRequest mocking!
   @Test
   public void test_DemoController() {
-    DemoController controller = new DemoController();
+    SimpleUsageController controller = new SimpleUsageController();
 
     Map<Object, Object> model = new HashMap<>();
 
-    ContainerFormRunner<DemoController.DemoForm> form = getForm(model);
+    ContainerFormRunner<SimpleUsageController.DemoForm> form = getForm(model);
     ExtendedModelMap modelToController = new ExtendedModelMap();
 
     controller.demo(form, modelToController);
@@ -53,7 +53,7 @@ public class DemoControllerTest {
         modelToController.containsKey("success"));
   }
 
-  private ContainerFormRunner<DemoController.DemoForm> getForm(Map<Object, Object> model) {
+  private ContainerFormRunner<SimpleUsageController.DemoForm> getForm(Map<Object, Object> model) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     Bean2Form bean2FromContract = generateBean2Form(validator);
@@ -64,8 +64,8 @@ public class DemoControllerTest {
     FormRunnerConfig formRunnerConfig =
         new FormRunnerConfig(renderer, bean2FromContract, new ModelResultProcessor(), "form");
 
-    return (ContainerFormRunner<DemoController.DemoForm>) new ContainerFormRunner(
-        DemoController.DemoForm.class, ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
+    return (ContainerFormRunner<SimpleUsageController.DemoForm>) new ContainerFormRunner(
+        SimpleUsageController.DemoForm.class, ExampleRequests.exampleSubmittedRequest("lastname", "Pier"),
         ExampleRequests.emptySessionGet(), ExampleRequests.emptySessionPut(),
         (t, v) -> model.put(t, v), formRunnerConfig);
   }

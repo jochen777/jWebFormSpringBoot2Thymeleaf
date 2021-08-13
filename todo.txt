@@ -1,17 +1,20 @@
 [x] Checkbox
-[ ] Hidden
-[ ] HTML
-[ ] Label
-[ ] Number
-[ ] Password
-[ ] Radio
-[ ] SelectDate
-[ ] Select
-[ ] SimpleGroup
-[ ] Simple
+[x] Hidden
+[x] HTML
+[x] Label
+[x] Number
+[x] Password
+[x] Radio
+[x] SelectDate
+[x] Select
+[x] SimpleGroup
+[x] Simple
 [x] Submit
-[ ] TextArea
+[x] TextArea
 [ ] TextDate
 [x] Text
-[ ] Uplaod
+[x] Uplaod
 [ ] XSRFProtection
+[ ] Captcha
+
+[ ] CRUD-Beispiel

@@ -34,10 +34,18 @@
 
 <div style="width:500px; margin-left:50px">
   <h1>Hello World - Thymeleaf! (Demo2)</h1>
+  
+  
   <div th:replace="lib/forms :: form(${form})"></div>
-  <span th:utext="${form.html}">The form</span>
 </div>
 
 
 </body>
 </html>
+
+<!--   
+<div th:replace="lib/forms :: form(${form})"></div>
+
+<span th:utext="${form.html}">The form</span> 
+
+ -->
