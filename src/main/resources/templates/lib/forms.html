@@ -79,7 +79,7 @@
     </span>
 </div>
 
-<!-- ########## Checkbox ###### -->
+<!-- ########## XSRF Protection ###### -->
 <div  th:fragment="jwebform_field_XSRFProtectionType(producerInfo)">
 <span th:utext="${producerInfo.html}"></span>
 </div>
@@ -91,7 +91,8 @@
         <input th:tabindex="${producerInfo.tabIndex}"
                type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
                th:name="${producerInfo.name}"
-               th:value="${producerInfo.value}"
+               th:checked="${producerInfo.valueObject}"
+               th:value="${producerInfo.name}"
                class="form-check-input " >
         <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
             <span th:text="#{${producerInfo.decoration.label}}">Label</span>

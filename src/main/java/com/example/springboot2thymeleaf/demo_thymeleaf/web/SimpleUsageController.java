@@ -10,6 +10,8 @@ import jwebform.env.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import jwebform.field.SubmitType;
 import jwebform.integration.ContainerFormRunner;
 import jwebform.integration.FormResultAndBean;
@@ -27,11 +29,12 @@ public class SimpleUsageController {
    * formModel in the model as "form" and "form_rendered"
    */
   @RequestMapping("/demo")
-  public void demo(ContainerFormRunner<DemoForm> form, Model model) {
+  public ModelAndView demo(ContainerFormRunner<DemoForm> form, Model model) {
     if (form.isValid()) {
-      model.addAttribute("success", "YES");
       log.info("Form was successfully submitted: " + form.getBean().firstname + " " + form.getBean().lastname);
+      return new ModelAndView("redirect:/");
     }
+    return new ModelAndView("demo");
   }
 
 
@@ -39,10 +42,12 @@ public class SimpleUsageController {
    * here the bean is created manually. This is useful in case you have to add contructor arguments
    */
   @RequestMapping("/demo2")
-  public void demo2(ContainerFormRunner<FullFormBuilder> form) {
+  public ModelAndView demo2(ContainerFormRunner<FullFormBuilder> form) {
     if (form.isValid()) { 
       log.info("Form was successfully submitted: " + form.getStringValue("textInput"));
+      return new ModelAndView("redirect:/");
     }
+    return new ModelAndView("demo2");
   }
 
 
