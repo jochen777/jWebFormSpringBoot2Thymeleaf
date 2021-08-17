@@ -28,7 +28,7 @@ public class FullFormBuilder implements FormGenerator {
         		xsrfProtection(),
                 text           ("textInput", atRuntime).
                 
-                        criteria     (req).
+                        criteria     (req, Criteria.maxLength(3)).
                         label        ("TextInputLabel"),
 
                 text           ("textInput2", "Peter\"Paul").

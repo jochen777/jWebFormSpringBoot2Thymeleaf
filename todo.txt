@@ -11,10 +11,14 @@
 [x] Simple
 [x] Submit
 [x] TextArea
-[ ] TextDate
+[x] TextDate
 [x] Text
 [x] Uplaod
-[ ] XSRFProtection
+[x] XSRFProtection
+[ ] Fix radio
 [ ] Captcha
+[ ] Einzelne ausgaben
+[ ] Korrekte Styles, korrekte Fehlermeldungen
 
 [ ] CRUD-Beispiel
+[ ] Demo mit dyn. hinzufügen von Empfänger-Mails

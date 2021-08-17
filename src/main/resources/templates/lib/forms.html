@@ -5,12 +5,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
 
-<div th:fragment="form(form )" th:with="method=${method} ?: 'POST', action=${action} ?: ''" >
+<div th:fragment="form(form )" th:with="method=${method} ?: 'GET', action=${action} ?: ''" >
     <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
     	 class="{{ formClass }}"
     	 th:enctype="${form.formModel.isUploadEnctypeRequired()} ? 'multipart/form-data': ''"
           th:action="${action}"
-          th:novalidate="${form.formModel.isHtml5Validaiton()}"
+          novalidate
           th:id="${form.formModel.formId}">
         <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
     <span th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
@@ -33,14 +33,17 @@
 <!-- ########## Text ###### -->
 <div  th:fragment="jwebform_field_TextType(producerInfo) ">
     <div class="form-group">
-        <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
+        <label class="form-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                        th:required="${producerInfo.validator.required}"
                        th:placeholder="${producerInfo.decoration.placeholder}"
-                       class="form-control " th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
+                       class="form-control" 
+                       th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                       th:tabindex="${producerInfo.tabIndex}" type="text" th:name="${producerInfo.name}"
                        th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
+        <div th:replace="lib/forms :: render_error(${producerInfo})"></div>
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
         </small>
@@ -93,7 +96,9 @@
                th:name="${producerInfo.name}"
                th:checked="${producerInfo.valueObject}"
                th:value="${producerInfo.name}"
-               class="form-check-input " >
+               class="form-check-input" 
+               th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+               >
         <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
             <span th:text="#{${producerInfo.decoration.label}}">Label</span>
             <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
@@ -108,8 +113,10 @@
             <span th:text="#{${producerInfo.decoration.label}}">Label</span>
             <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label>
-        <select class="form-control"
-                th:tabindex="${producerInfo.tabIndex}"
+        <select 
+            class="form-select" 
+            th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+        	th:tabindex="${producerInfo.tabIndex}"
                type="checkbox" th:id="@{'form-id-' + ${producerInfo.name}}"
                th:name="${producerInfo.name}"
                th:value="${producerInfo.value}"
@@ -136,6 +143,8 @@
                th:name="${producerInfo.name}"
                th:value="${selectElem.value}"
                th:selected="${producerInfo.value == selectElem.key}"
+               class="form-radio" 
+               th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
                 />
           
             <span th:text="#{${selectElem.value}}">Label</span>
@@ -152,8 +161,11 @@
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                        th:required="${producerInfo.validator.required}"
+                       class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                       
                        th:placeholder="${producerInfo.decoration.placeholder}"
-                       class="form-control " th:tabindex="${producerInfo.tabIndex}" type="file" th:name="${producerInfo.name}"
+                       th:tabindex="${producerInfo.tabIndex}" type="file" th:name="${producerInfo.name}"
                        th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
@@ -190,7 +202,10 @@
     </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                    th:required="${producerInfo.validator.required}"
                     th:placeholder="${producerInfo.decoration.placeholder}"
-                   class="form-control " th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
+                                           class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                    
+                   th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
                    th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
@@ -204,8 +219,11 @@
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
     </label><textarea th:id="@{'form-id-' + ${producerInfo.name}}"
                    th:required="${producerInfo.validator.required}"
+                                          class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                   
                     th:placeholder="${producerInfo.decoration.placeholder}"
-                   class="form-control " th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
+                   th:tabindex="${producerInfo.tabIndex}" type="number" th:name="${producerInfo.name}"
                     th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">[[${producerInfo.value}]]</textarea>
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
@@ -219,7 +237,10 @@
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
     </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
                    th:required="${producerInfo.validator.required}"
-                   class="form-control " th:tabindex="${producerInfo.tabIndex}" type="password" th:name="${producerInfo.name}"
+                                          class="form-control" 
+               		   th:classappend="${producerInfo.validationResult.isSuccess()} ? is-valid : (${producerInfo.validationResult.isError()} ? is-invalid : '')"
+                   
+                   th:tabindex="${producerInfo.tabIndex}" type="password" th:name="${producerInfo.name}"
                    th:value="${producerInfo.value}" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}">
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
