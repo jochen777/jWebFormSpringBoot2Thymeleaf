@@ -15,10 +15,10 @@
 [x] Text
 [x] Uplaod
 [x] XSRFProtection
-[ ] Fix radio
+[x] Fix radio
 [ ] Captcha
 [ ] Einzelne ausgaben
-[ ] Korrekte Styles, korrekte Fehlermeldungen
+[x] Korrekte Styles, korrekte Fehlermeldungen
 
 [ ] CRUD-Beispiel
 [ ] Demo mit dyn. hinzufügen von Empfänger-Mails

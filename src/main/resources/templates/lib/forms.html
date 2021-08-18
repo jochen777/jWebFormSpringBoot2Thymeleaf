@@ -5,34 +5,27 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
 
-<div th:fragment="form(form )" th:with="method=${method} ?: 'GET', action=${action} ?: ''" >
-    <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
-    	 class="{{ formClass }}"
+<form th:fragment="form(form )" th:with="method=${method} ?: 'GET', action=${action} ?: ''" 
+
+th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
+    	 class="row g-3"
     	 th:enctype="${form.formModel.isUploadEnctypeRequired()} ? 'multipart/form-data': ''"
           th:action="${action}"
           novalidate
-          th:id="${form.formModel.formId}">
+          th:id="@{${form.formModel.formId} +'-FORMCHECKER'}"
+
+>
         <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
-    <span th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
+    <th:block th:each="producerInfo: ${form.formModel.producerInfosContainer.piList}">
     <div th:replace="lib/forms :: ${#strings.replace(producerInfo.typeName, '.', '_')}(${producerInfo})"></div>
-    </span>
+    </th:block>
 
-    </form>
-</div>
+</form>
 
-
-<div th:fragment="form_start(form, method)">
-    <form th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }" class="{{ formClass }}"
-          action="{{ action }}"
-           th:id="${form.formModel.formId}">
-        <input type="hidden" name="WF_SUBMITTED" th:value="@{'WF-'+${form.formModel.formId}}">
-        <!-- {%  if form.isUploadEnctypeRequired %} enctype="multipart/form-data" {% endif %}
-          {% if not form.isHtml5Validaiton %}novalidate{% endif %} -->
-</div>
 
 <!-- ########## Text ###### -->
-<div  th:fragment="jwebform_field_TextType(producerInfo) ">
-    <div class="mb-3">
+<div  th:fragment="jwebform_field_TextType(producerInfo) " th:with="class=${class} ?: 'mb-3'">
+    <div th:class="${class}">
         <label class="form-label" th:for="@{'form-id-' + ${producerInfo.name}}" 
         th:text="#{${producerInfo.decoration.label}} + ${producerInfo.validator.required?'*':''}">
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
@@ -50,17 +43,19 @@
 </div>
 
 <!-- ########## TextDate ###### -->
-<div  th:fragment="jwebform_field_TextDateType(producerInfo)">
-    <div class="mb-3">
+<div  th:fragment="jwebform_field_TextDateType(producerInfo)"><!-- textdate -->
         <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
         </label>
-        <div  th:each="piChild : ${producerInfo.childs}">
-        	<div th:replace="lib/forms :: jwebform_field_TextType(${piChild})"></div>
-        </div>
+        <!--/* This "fake" input is just used to display the error message (invalid-feedback needs a corresponding invalid input) */-->
+        <input type="text" style="display:none" class="form-control is-invalid" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}"> 
         <div th:replace="lib/forms :: render_error(${producerInfo})"></div>
-    </div>
+        <div class="row g-3">
+	        <div  th:each="piChild : ${producerInfo.childs}">
+	        	<div th:replace="lib/forms :: jwebform_field_TextType(producerInfo=${piChild}, class='col-md-4')"></div>
+	        </div>
+        </div>
 </div>
 
 <!-- ########## error-label ###### -->
