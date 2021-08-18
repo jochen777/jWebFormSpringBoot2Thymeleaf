@@ -57,17 +57,23 @@ public class FullFormBuilder implements FormGenerator {
                         helpText     ("Area-Help").
                         placeholder  ("Area-Placeholder"),
                password       ("pssword").
-                        label        ("Password"),
+                        label        ("Password").
+                        helpText     ("password-help")
+                        ,
                 select         ("gender", "", new String[] {"m", "f"}, new String[] {"Male", "Female"}).
                         label        ("Gender"),
                 radio          ("radio", "1", new String[] {"1", "2"}, new String[] {"yes", "no"})
                         .label       ("Radio"),
-/*                upload         ("upld").
-                        label        ("Upload"),*/
+                upload         ("upld").
+                        label        ("Upload"),
                 textDate       ("dateInput", LocalDate.of(2017, 7, 4)).
                         criteria     (req).
                         label        ("date_input").
                         helpText     ("datehelptext"),
+              
+                       
+
+                        
                 submit("ok").
                         label("ok")
 

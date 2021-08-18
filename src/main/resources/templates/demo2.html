@@ -35,8 +35,8 @@
 <div style="width:500px; margin-left:50px">
   <h1>Hello World - Thymeleaf! (Demo2)</h1>
   
-  
-<b th:replace="lib/forms :: form(${form})"></b><!-- of form -->
+  <div th:replace="lib/forms :: form(${form})"></div>
+
 
 
 </div><!-- of style-container -->
@@ -46,9 +46,16 @@
 </html>
 
 <!--   
+
+Render via tymeleaf-template
 <div th:replace="lib/forms :: form(${form})"></div>
 
+Render via build-in code generated form-builder
 <span th:utext="${form.html}">The form</span> 
+
+Render individual field:
+<div th:replace="lib/forms :: jwebform_field_RadioType(${form.formModel.producerInfosContainer.piMap['radio']})"></div>
+<div th:replace="lib/forms :: field(${form},'radio')"></div>
 
 ---
 

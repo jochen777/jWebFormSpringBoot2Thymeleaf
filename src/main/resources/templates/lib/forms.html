@@ -6,7 +6,6 @@
       lang="en">
 
 <form th:fragment="form(form )" th:with="method=${method} ?: 'GET', action=${action} ?: ''" 
-
 th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
     	 class="row g-3"
     	 th:enctype="${form.formModel.isUploadEnctypeRequired()} ? 'multipart/form-data': ''"
@@ -23,9 +22,14 @@ th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
 </form>
 
 
+<th:block th:fragment="field(form, fieldname)">
+<div th:replace="lib/forms :: ${#strings.replace(form.formModel.producerInfosContainer.piMap[fieldname+''].typeName, '.', '_')}
+(${form.formModel.producerInfosContainer.piMap[fieldname+'']})"></div>
+</th:block>
+
+
 <!-- ########## Text ###### -->
-<div  th:fragment="jwebform_field_TextType(producerInfo) " th:with="class=${class} ?: 'mb-3'">
-    <div th:class="${class}">
+<div  th:fragment="jwebform_field_TextType(producerInfo) " th:with="class=${class} ?: 'mb-3'" th:class="${class}">
         <label class="form-label" th:for="@{'form-id-' + ${producerInfo.name}}" 
         th:text="#{${producerInfo.decoration.label}} + ${producerInfo.validator.required?'*':''}">
         </label><input th:id="@{'form-id-' + ${producerInfo.name}}"
@@ -39,11 +43,10 @@ th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
         <small th:id="@{'form-id-' + ${producerInfo.name} + '-help_block'}" class="form-text text-muted" th:if="${producerInfo.decoration.helptext != ''}">
             <span th:text="#{${producerInfo.decoration.helptext}}">Helptext</span>
         </small>
-    </div>
 </div>
 
 <!-- ########## TextDate ###### -->
-<div  th:fragment="jwebform_field_TextDateType(producerInfo)"><!-- textdate -->
+<th:block  th:fragment="jwebform_field_TextDateType(producerInfo)"><!-- textdate -->
         <label class="control-label" th:for="@{'form-id-' + ${producerInfo.name}}" >
         <span th:text="#{${producerInfo.decoration.label}}">Label</span>
         <span th:if="${producerInfo.validator.required}" th:text="'*'">Label</span>
@@ -51,12 +54,10 @@ th:name="@{${form.formModel.formId} +'-FORMCHECKER'}" th:method="${ method }"
         <!--/* This "fake" input is just used to display the error message (invalid-feedback needs a corresponding invalid input) */-->
         <input type="text" style="display:none" class="form-control is-invalid" th:aria-describedby="@{'helpBlock-' + ${producerInfo.name}}"> 
         <div th:replace="lib/forms :: render_error(${producerInfo})"></div>
-        <div class="row g-3">
-	        <div  th:each="piChild : ${producerInfo.childs}">
-	        	<div th:replace="lib/forms :: jwebform_field_TextType(producerInfo=${piChild}, class='col-md-4')"></div>
-	        </div>
-        </div>
-</div>
+        <th:block  th:each="piChild : ${producerInfo.childs}">
+        	<div th:replace="lib/forms :: jwebform_field_TextType(producerInfo=${piChild}, class='col-md-4')"></div>
+        </th:block>
+</th:block>
 
 <!-- ########## error-label ###### -->
 <div  th:fragment="render_error(producerInfo)" class="invalid-feedback" th:if="${producerInfo.validationResult.isError()}">
